@@ -2,13 +2,13 @@
 
 use Illuminate\Database\Capsule\Manager as DbManager;
 
-$capsule = new DbManager;
+$capsule = new DbManager();
 
 $capsule->addConnection([
     'driver' => 'sqlite',
     'database' => __DIR__ . '/../../wunder.sqlite',
-    'prefix' => ""
+    'prefix' => "",
  ]);
- 
- $capsule->setAsGlobal();
- $capsule->bootEloquent();
+
+$capsule->setAsGlobal();
+$capsule->bootEloquent();
