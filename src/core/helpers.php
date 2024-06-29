@@ -6,7 +6,7 @@ if (! function_exists('dd')) {
      *
      * @return void
      */
-    function dd($var)
+    function dd($var): void
     {
         echo "<pre>";
         print_r($var);

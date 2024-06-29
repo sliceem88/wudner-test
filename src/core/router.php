@@ -2,6 +2,6 @@
 
 use Leaf\Router;
 
-Router::get("/", "\App\Controllers\BaseController@index");
+Router::post("/product", "\App\Controllers\CreateProductController@index");
 
 Router::run();

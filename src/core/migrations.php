@@ -2,9 +2,8 @@
 
 use Illuminate\Database\Capsule\Manager as DbManager;
 
-DbManager::schema()->create('product', function ($table) {
+DbManager::schema()->create('products', function ($table) {
     $table->increments('id');
-    $table->string('product_code')->unique();
     $table->string('name')->unique();
     $table->string('price');
     $table->string('type');
@@ -19,4 +18,4 @@ DbManager::schema()->create('cart_rules', function ($table) {
     $table->timestamps();
 });
 
-echo 'Migations executed successfully';
+echo 'Migrations executed successfully';
