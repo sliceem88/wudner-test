@@ -8,4 +8,6 @@ Router::get("/product", "\App\Controllers\ProductController@get");
 Router::post("/rule", "\App\Controllers\RuleController@create");
 Router::get("/rule", "\App\Controllers\RuleController@get");
 
+Router::post("/cart", "\App\Controllers\CartController@get");
+
 Router::run();

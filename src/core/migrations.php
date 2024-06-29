@@ -15,6 +15,7 @@ DbManager::schema()->create('cart_rules', function ($table) {
     $table->string('type');
     $table->string('name')->unique();
     $table->string('discount');
+    $table->string('group');
     $table->timestamps();
 });
 

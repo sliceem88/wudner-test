@@ -4,8 +4,9 @@ namespace App\Controllers;
 
 use App\Models\Rule;
 use Leaf\Http\Request;
+use App\Interfaces\CreationableInterface;
 
-class CreateRuleController extends BaseController
+class RuleController extends BaseController implements CreationableInterface
 {
     public function __construct()
     {
@@ -24,7 +25,7 @@ class CreateRuleController extends BaseController
                 'errorStatus' => false,
                 'message' => 'Rule created successfully',
             ]);
-        } catch (\Throwable) {
+        } catch (\Throwable $e) {
             return response()->json([
                 'data' => [],
                 'errorStatus' => true,
