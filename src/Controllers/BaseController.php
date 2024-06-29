@@ -2,10 +2,9 @@
 
 namespace App\Controllers;
 
-use Interfaces\CreationableInterface;
-use Interfaces\GettableInterface;
+use App\Interfaces\GettableInterface;
 
-abstract class BaseController implements CreationableInterface, GettableInterface
+abstract class BaseController implements GettableInterface
 {
     public function __construct()
     {

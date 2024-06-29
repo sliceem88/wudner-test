@@ -4,8 +4,9 @@ namespace App\Controllers;
 
 use App\Models\Product;
 use Leaf\Http\Request;
+use App\Interfaces\CreationableInterface;
 
-class CreateProductController extends BaseController
+class ProductController extends BaseController implements CreationableInterface
 {
     public function __construct()
     {

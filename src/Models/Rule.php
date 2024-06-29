@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rule extends Model
 {
-    protected $table = 'rules';
+    protected $table = 'cart_rules';
 
     protected $fillable = [
-        'type', 'name', 'discount',
+        'type', 'name', 'discount', 'group'
     ];
 }
