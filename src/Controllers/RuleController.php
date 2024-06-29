@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 
-use Leaf\Http\Request;
 use App\Models\Rule;
+use Leaf\Http\Request;
 
 class CreateRuleController extends BaseController
 {
@@ -15,21 +15,20 @@ class CreateRuleController extends BaseController
     public function create()
     {
         $formsData = Request::params();
-        
+
         try {
             Rule::create($formsData);
 
             return response()->json([
-                'data' => [], 
+                'data' => [],
                 'errorStatus' => false,
-                'message' => 'Rule created successfully'
+                'message' => 'Rule created successfully',
             ]);
-
         } catch (\Throwable) {
             return response()->json([
-                'data' => [], 
-                'errorStatus' => true, 
-                'message' => 'Error on rule creation'
+                'data' => [],
+                'errorStatus' => true,
+                'message' => 'Error on rule creation',
             ]);
         }
     }
@@ -37,9 +36,9 @@ class CreateRuleController extends BaseController
     public function get()
     {
         return response()->json([
-            'data' => [...Rule::all()->toArray()], 
+            'data' => [...Rule::all()->toArray()],
             'errorStatus' => false,
-            'message' => ''
+            'message' => '',
         ]);
     }
 }

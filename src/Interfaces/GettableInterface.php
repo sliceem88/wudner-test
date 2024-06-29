@@ -2,6 +2,7 @@
 
 namespace Interfaces;
 
-interface GettableInterface {
+interface GettableInterface
+{
     public function get();
 }

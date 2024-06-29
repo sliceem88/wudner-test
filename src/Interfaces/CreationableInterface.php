@@ -2,6 +2,7 @@
 
 namespace Interfaces;
 
-interface CreationableInterface {
+interface CreationableInterface
+{
     public function create();
 }
