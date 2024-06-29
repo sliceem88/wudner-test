@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use Leaf\Http\Request as LeafRequest;
+use Leaf\Http\Request;
 use App\Models\Product;
 
 class CreateProductController extends BaseController
@@ -12,9 +12,9 @@ class CreateProductController extends BaseController
         parent::__construct();
     }
 
-    public function index()
+    public function create()
     {
-        $formsData = LeafRequest::params();
+        $formsData = Request::params();
         
         try {
             Product::create($formsData);
@@ -25,12 +25,21 @@ class CreateProductController extends BaseController
                 'message' => 'Product created successfully'
             ]);
 
-        } catch (\Throwable $e) {
+        } catch (\Throwable) {
             return response()->json([
                 'data' => [], 
                 'errorStatus' => true, 
                 'message' => 'Error on product creation'
             ]);
         }
+    }
+
+    public function get()
+    {
+        return response()->json([
+            'data' => [...Product::all()->toArray()], 
+            'errorStatus' => false,
+            'message' => ''
+        ]);
     }
 }

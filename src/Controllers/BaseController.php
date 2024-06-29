@@ -2,7 +2,11 @@
 
 namespace App\Controllers;
 
-class BaseController
+use Interfaces\CreationableInterface;
+use Interfaces\GettableInterface;
+
+
+abstract class BaseController implements CreationableInterface, GettableInterface
 {
     public function __construct() {
         header("Access-Control-Allow-Origin: *");
