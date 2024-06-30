@@ -6,7 +6,7 @@ use App\Interfaces\CalculatableInterface;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Collection;
 
-class PercentDiscount implements CalculatableInterface
+final class PercentDiscount implements CalculatableInterface
 {
     public function calculate(Collection $productList, float|int $total, ?string $group = null, ?int $discountAmount = null): Collection
     {

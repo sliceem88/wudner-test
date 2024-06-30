@@ -8,7 +8,7 @@ use App\Services\NumberDiscount;
 use App\Services\PercentDiscount;
 use Illuminate\Database\Eloquent\Collection;
 
-class Cart
+final class Cart
 {
     private const DISCOUNT_SERVICES = [
         'empty' => EmptyDiscount::class,

@@ -6,7 +6,7 @@ use App\Interfaces\CreationableInterface;
 use App\Models\Rule;
 use Leaf\Http\Request;
 
-class RuleController extends BaseController implements CreationableInterface
+final class RuleController extends BaseController implements CreationableInterface
 {
     public function __construct()
     {

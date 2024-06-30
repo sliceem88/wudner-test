@@ -6,7 +6,7 @@ use App\Interfaces\CreationableInterface;
 use App\Models\Product;
 use Leaf\Http\Request;
 
-class ProductController extends BaseController implements CreationableInterface
+final class ProductController extends BaseController implements CreationableInterface
 {
     public function __construct()
     {

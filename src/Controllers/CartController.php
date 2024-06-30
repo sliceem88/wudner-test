@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Models\Cart;
 use Leaf\Http\Request;
 
-class CartController extends BaseController
+final class CartController extends BaseController
 {
     private ?Cart $cartHandler;
 
