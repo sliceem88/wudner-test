@@ -1,12 +1,14 @@
 <?php
+
 namespace App\Services;
 
 use App\Interfaces\CalculatableInterface;
+use Illuminate\Database\Eloquent\Collection;
 
-class EmptyDiscount implements CalculatableInterface
+final class EmptyDiscount implements CalculatableInterface
 {
-    public function calculate(array $productList, ?string $group = null, ?int $discountAmount = null): float|int
+    public function calculate(Collection $productList, float|int $total, ?string $group = null, ?int $discountAmount = null): Collection
     {
-        return array_sum(array_map(fn($product) => (float)$product['price'], $productList));
+        return $productList;
     }
 }
