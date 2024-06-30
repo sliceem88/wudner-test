@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Models\Product;
 use Leaf\Http\Request;
 use App\Models\Cart;
 

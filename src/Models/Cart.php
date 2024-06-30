@@ -14,7 +14,7 @@ class Cart
 {
     private const DISCOUNT_SERVICES = [
         'empty' => EmptyDiscount::class,
-        'percents' => PercentDiscount::class,
+        'percent' => PercentDiscount::class,
         'number' => NumberDiscount::class,
     ];
 
@@ -30,13 +30,13 @@ class Cart
         ];
     }
 
-    private function handleCart(Collection $rules, Collection $products): float
+    private function handleCart(Collection $rules, Collection $products): float|int
     {
         $total = 0;
 
-        if ($rules->empty()) {
+        if ($rules->isEmpty()) {
             $discountService = $this->getDiscountService();
-            $total += $discountService->calculate($products->toArray());
+            $productListWithDiscount = $discountService->calculate($products, $total);
         }
 
         foreach ($rules as $rule) {
@@ -44,10 +44,10 @@ class Cart
             $groupProductRules = $rule->group;
             $discountService = $this->getDiscountService($rule->type);
 
-            $total += $discountService->calculate($products->toArray(), $groupProductRules, $discount);
+            $productListWithDiscount = $discountService->calculate($products, $total, $groupProductRules, $discount);
         }
 
-        return $total;
+        return $this->calculateTotal($productListWithDiscount);
     }
 
     private function getDiscountService(string $discountType = 'empty'): CalculatableInterface
@@ -55,5 +55,10 @@ class Cart
         $serviceClassName = self::DISCOUNT_SERVICES[$discountType];
 
         return new $serviceClassName();
+    }
+
+    private function calculateTotal(Collection $products): int|float
+    {
+        return array_sum(array_map(fn($product) => $product['price'], $products->toArray()));
     }
 }
