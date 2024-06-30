@@ -17,7 +17,7 @@ final class NumberDiscount implements CalculatableInterface
 
     protected function applyDiscount(Product $product, string $discountGroup = null, string $discount): Product
     {
-        if (is_null($discountGroup) || $product->type === $discountGroup) {
+        if (is_null($discountGroup) || !strlen($discountGroup) || $product->type === $discountGroup) {
             $product->price = (int)$product->price - (int)$discount;
         }
 
