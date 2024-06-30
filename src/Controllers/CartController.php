@@ -12,16 +12,21 @@ class CartController extends BaseController
 
     public function __construct()
     {
+        parent::__construct();
         $this->cartHandler = new Cart();
     }
 
     public function get()
     {
         $cartData = getJsonRequest(Request::params());
-        $cart = $this->cartHandler->process($cartData);
+        [$total, $products, $rules] = $this->cartHandler->process($cartData);
 
         return response()->json([
-            'data' => [...Product::all()->toArray()],
+            'data' => [
+                'totalPrice' => $total,
+                'products' => $products->toArray(),
+                'rules' => $rules->toArray()
+            ],
             'errorStatus' => false,
             'message' => '',
         ]);
