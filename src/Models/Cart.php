@@ -5,28 +5,55 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\Product;
 use App\Models\Rule;
+use App\Services\NumberDiscount;
+use App\Services\PercentDiscount;
+use App\Services\EmptyDiscount;
+use App\Interfaces\CalculatableInterface;
 
 class Cart
 {
-    public function process(array $rawData)
+    private const DISCOUNT_SERVICES = [
+        'empty' => EmptyDiscount::class,
+        'percents' => PercentDiscount::class,
+        'number' => NumberDiscount::class,
+    ];
+
+    public function process(array $rawData): array
     {
         $rules = Rule::whereIn('id', $rawData['rulesId'])->get();
         $products = Product::whereIn('id', $rawData['productsId'])->get();
 
-        $this->handleCart($rules, $products);
+        return [
+            $this->handleCart($rules, $products),
+            $products,
+            $rules,
+        ];
     }
 
-    /**
-     * @param Collection<Rule> $rules
-     * @param Collection<Product> $products
-     * @return void
-     */
-    private function handleCart(Collection $rules, Collection $products)
+    private function handleCart(Collection $rules, Collection $products): float
     {
         $total = 0;
 
-        foreach($rules->toArray() as $rule) {
-            $total = $rule->handle($products, $total);
+        if ($rules->empty()) {
+            $discountService = $this->getDiscountService();
+            $total += $discountService->calculate($products->toArray());
         }
+
+        foreach ($rules as $rule) {
+            $discount = $rule->discount;
+            $groupProductRules = $rule->group;
+            $discountService = $this->getDiscountService($rule->type);
+
+            $total += $discountService->calculate($products->toArray(), $groupProductRules, $discount);
+        }
+
+        return $total;
+    }
+
+    private function getDiscountService(string $discountType = 'empty'): CalculatableInterface
+    {
+        $serviceClassName = self::DISCOUNT_SERVICES[$discountType];
+
+        return new $serviceClassName();
     }
 }
