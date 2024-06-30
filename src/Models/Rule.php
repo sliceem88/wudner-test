@@ -10,10 +10,11 @@ class Rule extends Model
     protected $table = 'cart_rules';
 
     protected $fillable = [
-        'type', 'name', 'discount', 'group'
+        'type', 'name', 'discount', 'group',
     ];
 
-    public function handle(Collection $products, float $total) {
+    public function handle(Collection $products, float $total)
+    {
         $discount = $this->discount;
         $groupProductRules = $this->group;
         $typeOfDiscount = $this->type;

@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 
-use Leaf\Http\Request;
 use App\Models\Cart;
+use Leaf\Http\Request;
 
 class CartController extends BaseController
 {
@@ -24,7 +24,7 @@ class CartController extends BaseController
             'data' => [
                 'totalPrice' => $total,
                 'products' => $products->toArray(),
-                'rules' => $rules->toArray()
+                'rules' => $rules->toArray(),
             ],
             'errorStatus' => false,
             'message' => '',

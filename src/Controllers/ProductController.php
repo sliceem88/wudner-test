@@ -2,9 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Interfaces\CreationableInterface;
 use App\Models\Product;
 use Leaf\Http\Request;
-use App\Interfaces\CreationableInterface;
 
 class ProductController extends BaseController implements CreationableInterface
 {

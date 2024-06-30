@@ -2,9 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Interfaces\CreationableInterface;
 use App\Models\Rule;
 use Leaf\Http\Request;
-use App\Interfaces\CreationableInterface;
 
 class RuleController extends BaseController implements CreationableInterface
 {

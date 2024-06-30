@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use App\Interfaces\CalculatableInterface;
-use Illuminate\Database\Eloquent\Collection;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Collection;
 
 class NumberDiscount implements CalculatableInterface
 {

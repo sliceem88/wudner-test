@@ -3,12 +3,12 @@
 namespace App\Services;
 
 use App\Interfaces\CalculatableInterface;
-use Illuminate\Database\Eloquent\Collection;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Collection;
 
 class PercentDiscount implements CalculatableInterface
 {
-    public function calculate(Collection $productList,float|int $total, ?string $group = null, ?int $discountAmount = null): Collection
+    public function calculate(Collection $productList, float|int $total, ?string $group = null, ?int $discountAmount = null): Collection
     {
         $productsWithDiscount = $productList->map(fn ($product) => $this->applyDiscount($product, $group, $discountAmount));
 
@@ -20,7 +20,7 @@ class PercentDiscount implements CalculatableInterface
         if (is_null($discountGroup) || $product->type === $discountGroup) {
             $product->price = (int)$product->price * (1 - ((int)$discount / 100));
         }
-        
+
         return $product;
     }
 }

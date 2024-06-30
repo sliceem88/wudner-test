@@ -2,13 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Collection;
-use App\Models\Product;
-use App\Models\Rule;
+use App\Interfaces\CalculatableInterface;
+use App\Services\EmptyDiscount;
 use App\Services\NumberDiscount;
 use App\Services\PercentDiscount;
-use App\Services\EmptyDiscount;
-use App\Interfaces\CalculatableInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 class Cart
 {
@@ -59,6 +57,6 @@ class Cart
 
     private function calculateTotal(Collection $products): int|float
     {
-        return array_sum(array_map(fn($product) => $product['price'], $products->toArray()));
+        return array_sum(array_map(fn ($product) => $product['price'], $products->toArray()));
     }
 }
