@@ -5,7 +5,7 @@ use App\Models\Rule;
 use App\Models\Product;
 use PHPUnit\Framework\TestCase;
 
-class CartDiscountCalculationTest extends TestCase
+class CartTest extends TestCase
 {
     private Product $product;
     private Rule $rule;
@@ -27,13 +27,27 @@ class CartDiscountCalculationTest extends TestCase
     {
         $this->rule->type = 'percent';
         $this->rule->save();
-        $cartData = [
-            'productsId' => [$this->product->id],
-            'rulesId' => [$this->rule->id],
-        ];
-        [$total] = $this->cartHandler->process($cartData);
+        [$total] = $this->cartHandler->process($this->getCartData());
 
         $this->assertTrue($total === 9.5);
+    }
+
+    public function test_cart_calculation_wrong_group()
+    {
+        $this->rule->group = 'liquid';
+        $this->rule->save();
+        [$total] = $this->cartHandler->process($this->getCartData());
+
+        $this->assertTrue($total === 10);
+    }
+
+    public function test_cart_calculation_empty_group()
+    {
+        $this->rule->group = '';
+        $this->rule->save();
+        [$total] = $this->cartHandler->process($this->getCartData());
+
+        $this->assertTrue($total === 5);
     }
 
     protected function setUp(): void
@@ -56,6 +70,14 @@ class CartDiscountCalculationTest extends TestCase
         );
 
         $this->cartHandler = new Cart();
+    }
+
+    protected function getCartData(): array 
+    {
+        return [
+            'productsId' => [$this->product->id],
+            'rulesId' => [$this->rule->id],
+        ];
     }
 
     protected function tearDown(): void
